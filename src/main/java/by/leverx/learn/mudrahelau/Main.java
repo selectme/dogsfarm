@@ -18,7 +18,7 @@ public class Main {
 
         Dog dog = new Dog();
         dog.setName("Sharik");
-        dog.setAge(1.5);
+        dog.setAge(0.5);
         dog.setFed(false);
         dog.setHealthy(true);
         dog.setTrained(false);
@@ -47,9 +47,13 @@ public class Main {
 
         farm.feeding();
         farm.healthCheckUp();
+        farm.distributeDogs();
+
         farm.training();
 
         farm.aviaryCleaning();
+
+
 
 
     }

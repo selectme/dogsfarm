@@ -1,11 +1,13 @@
 package by.leverx.learn.mudrahelau.model;
 
+import by.leverx.learn.mudrahelau.dogtypes.DogTypes;
 import by.leverx.learn.mudrahelau.model.building.DogsAviary;
 import by.leverx.learn.mudrahelau.model.building.TrainingGround;
 import by.leverx.learn.mudrahelau.model.staff.Cleaner;
 import by.leverx.learn.mudrahelau.model.staff.Feeder;
 import by.leverx.learn.mudrahelau.model.staff.Trainer;
 import by.leverx.learn.mudrahelau.model.staff.Veterinarian;
+import by.leverx.learn.mudrahelau.util.DogTypeDeterminer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,8 @@ import java.util.List;
 public class Farm {
 
     private List<DogsAviary> dogsAviaries = new ArrayList<>();
+    private List<Dog> puppiesToTrain = new ArrayList<>();
+    private List<Dog> dogsToWork = new ArrayList<>();
 
     private TrainingGround trainingGround;
 
@@ -38,13 +42,13 @@ public class Farm {
         Trainer trainer = new Trainer();
         trainer.setStaffActivity(new Training());
 
-        for (DogsAviary aviary : dogsAviaries) {
-            if (!aviary.checkIsAviaryEmpty())
-                trainer.doActivity(aviary.getDog());
+        for (Dog dog : puppiesToTrain) {
+
+            trainer.doActivity(dog);
         }
     }
 
-    public void feeding(){
+    public void feeding() {
         Feeder feeder = new Feeder();
         feeder.setStaffActivity(new Feeding());
 
@@ -54,7 +58,7 @@ public class Farm {
         }
     }
 
-    public void healthCheckUp(){
+    public void healthCheckUp() {
         Veterinarian veterinarian = new Veterinarian();
         veterinarian.setStaffActivity(new HealthCheck());
 
@@ -64,14 +68,32 @@ public class Farm {
         }
     }
 
-    public void aviaryCleaning(){
+    public void aviaryCleaning() {
         Cleaner cleaner = new Cleaner();
         cleaner.setStaffFarmMaintenanceActivity(new Cleaning());
 
-        for(DogsAviary aviary : dogsAviaries){
+        for (DogsAviary aviary : dogsAviaries) {
             cleaner.doActivity(aviary);
         }
+    }
 
+    public void distributeDogs() {
+        DogTypes dogType;
+        Dog dog;
+        for (DogsAviary aviary : dogsAviaries) {
+            dog = aviary.getDog();
+            dogType = DogTypeDeterminer.determineDogType(dog);
+            switch (dogType) {
+                case PUPPY:
+                    puppiesToTrain.add(dog);
+                    aviary.removeDog(dog);
+                    break;
+                case ADULT:
+                    dogsToWork.add(dog);
+                    aviary.removeDog(dog);
+                    break;
+            }
+        }
     }
 
 

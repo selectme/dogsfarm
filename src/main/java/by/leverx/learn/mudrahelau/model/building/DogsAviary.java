@@ -19,8 +19,16 @@ public class DogsAviary implements Building {
     public void addDog(Dog dog) {
         if (checkIsAviaryEmpty()) {
             this.dog = dog;
-        }else {
+        } else {
             System.out.println("There is no free space in the aviary №" + aviaryNumber);
+        }
+    }
+
+    public void removeDog(Dog dog) {
+        if (!checkIsAviaryEmpty()) {
+            this.dog = null;
+        } else {
+            System.out.println("Aviary №" + aviaryNumber + " is already empty");
         }
     }
 
@@ -35,6 +43,7 @@ public class DogsAviary implements Building {
     public Dog getDog() {
         return dog;
     }
+
 
     @Override
     public String toString() {
