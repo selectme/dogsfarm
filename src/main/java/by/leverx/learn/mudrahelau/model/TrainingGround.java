@@ -6,7 +6,7 @@ import by.leverx.learn.mudrahelau.traininggroundstatus.TrainingGroundStatus;
 /**
  * @author Viktar on 13.05.2020
  */
-public class TrainingGround {
+public class TrainingGround implements Building{
 
     private Trainer trainer;
     private TrainingGroundStatus groundStatus;
@@ -31,5 +31,10 @@ public class TrainingGround {
 
     public void setGroundStatus(TrainingGroundStatus groundStatus) {
         this.groundStatus = groundStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "Training ground";
     }
 }

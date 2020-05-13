@@ -2,6 +2,7 @@ package by.leverx.learn.mudrahelau.model;
 
 import by.leverx.learn.mudrahelau.daytimes.DayTime;
 import by.leverx.learn.mudrahelau.model.staff.*;
+import by.leverx.learn.mudrahelau.model.staff.staffactivity.StaffFarmMaintenance;
 import by.leverx.learn.mudrahelau.model.staff.staffactivity.StaffWithDogActivity;
 import by.leverx.learn.mudrahelau.model.staff.staffactivity.impl.*;
 import by.leverx.learn.mudrahelau.traininggroundstatus.TrainingGroundStatus;
@@ -19,6 +20,7 @@ public class Farm {
     private List<Dog> dogsForTraining = new ArrayList<>();
 
     private StaffWithDogActivity staffActivity;
+    private StaffFarmMaintenance staffFarmMaintenance;
     private TrainingGround trainingGround;
     private DayTime dayTime;
 
@@ -129,7 +131,16 @@ public class Farm {
         }
     }
 
-    public void startDaylyTypeActivities(DayTime dayTime) {
+    public void cleaning(){
+        Cleaner cleaner = new Cleaner();
+        cleaner.setStaffFarmMaintenance(new Cleaning());
+
+        for(DogsAviary aviary : dogsAviaries){
+            cleaner.maintain(aviary);
+        }
+    }
+
+    public void startDailyTypeActivities(DayTime dayTime) {
         switch (dayTime) {
             case MORNING:
                 setDogsHungry();
@@ -138,6 +149,7 @@ public class Farm {
                 distributeDogs();
                 break;
             case AFTERNOON:
+                cleaning();
                 training(trainingGround);
                 sendDogsToWork();
                 break;
@@ -201,5 +213,13 @@ public class Farm {
 
     public void setDayTime(DayTime dayTime) {
         this.dayTime = dayTime;
+    }
+
+    public StaffFarmMaintenance getStaffFarmMaintenance() {
+        return staffFarmMaintenance;
+    }
+
+    public void setStaffFarmMaintenance(StaffFarmMaintenance staffFarmMaintenance) {
+        this.staffFarmMaintenance = staffFarmMaintenance;
     }
 }

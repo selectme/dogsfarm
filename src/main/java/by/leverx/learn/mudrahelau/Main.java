@@ -5,8 +5,6 @@ import by.leverx.learn.mudrahelau.model.DogsAviary;
 import by.leverx.learn.mudrahelau.model.Dog;
 import by.leverx.learn.mudrahelau.model.Farm;
 import by.leverx.learn.mudrahelau.model.TrainingGround;
-import by.leverx.learn.mudrahelau.model.staff.Trainer;
-import by.leverx.learn.mudrahelau.model.staff.staffactivity.impl.Feeding;
 
 /**
  * @author Viktar on 10.05.2020
@@ -54,9 +52,9 @@ public class Main {
         aviary2.addDog(dog2);
         aviary3.addDog(dog3);
 
-        farm.startDaylyTypeActivities(DayTime.MORNING);
-        farm.startDaylyTypeActivities(DayTime.AFTERNOON);
-        farm.startDaylyTypeActivities(DayTime.EVENING);
+        farm.startDailyTypeActivities(DayTime.MORNING);
+        farm.startDailyTypeActivities(DayTime.AFTERNOON);
+        farm.startDailyTypeActivities(DayTime.EVENING);
 
 
     }

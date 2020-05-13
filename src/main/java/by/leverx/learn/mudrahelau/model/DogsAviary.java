@@ -3,7 +3,7 @@ package by.leverx.learn.mudrahelau.model;
 /**
  * @author Viktar on 11.05.2020
  */
-public class DogsAviary {
+public class DogsAviary  implements Building{
 
     private static int aviaryNumberCounter = 1;
     private int aviaryNumber;
