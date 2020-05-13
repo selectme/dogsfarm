@@ -1,7 +1,12 @@
 package by.leverx.learn.mudrahelau;
 
-import by.leverx.learn.mudrahelau.model.*;
-import by.leverx.learn.mudrahelau.model.building.DogsAviary;
+import by.leverx.learn.mudrahelau.daytimes.DayTime;
+import by.leverx.learn.mudrahelau.model.DogsAviary;
+import by.leverx.learn.mudrahelau.model.Dog;
+import by.leverx.learn.mudrahelau.model.Farm;
+import by.leverx.learn.mudrahelau.model.TrainingGround;
+import by.leverx.learn.mudrahelau.model.staff.Trainer;
+import by.leverx.learn.mudrahelau.model.staff.staffactivity.impl.Feeding;
 
 /**
  * @author Viktar on 10.05.2020
@@ -12,9 +17,13 @@ public class Main {
 
         Farm farm = Farm.getInstance();
 
+        TrainingGround trainingGround = new TrainingGround();
+        farm.setTrainingGround(trainingGround);
+
         DogsAviary aviary = new DogsAviary();
         DogsAviary aviary2 = new DogsAviary();
         DogsAviary aviary3 = new DogsAviary();
+
 
         Dog dog = new Dog();
         dog.setName("Sharik");
@@ -45,15 +54,9 @@ public class Main {
         aviary2.addDog(dog2);
         aviary3.addDog(dog3);
 
-        farm.feeding();
-        farm.healthCheckUp();
-        farm.distributeDogs();
-
-        farm.training();
-
-        farm.aviaryCleaning();
-
-
+        farm.startDaylyTypeActivities(DayTime.MORNING);
+        farm.startDaylyTypeActivities(DayTime.AFTERNOON);
+        farm.startDaylyTypeActivities(DayTime.EVENING);
 
 
     }

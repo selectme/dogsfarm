@@ -1,6 +1,8 @@
-package by.leverx.learn.mudrahelau.model;
+package by.leverx.learn.mudrahelau.model.staff.staffactivity.impl;
 
 import by.leverx.learn.mudrahelau.dogtypes.DogTypes;
+import by.leverx.learn.mudrahelau.model.Dog;
+import by.leverx.learn.mudrahelau.model.staff.staffactivity.StaffWithDogActivity;
 import by.leverx.learn.mudrahelau.util.DogTypeDeterminer;
 
 /**

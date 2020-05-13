@@ -1,15 +1,14 @@
-package by.leverx.learn.mudrahelau.model.building;
-
-import by.leverx.learn.mudrahelau.model.Dog;
+package by.leverx.learn.mudrahelau.model;
 
 /**
  * @author Viktar on 11.05.2020
  */
-public class DogsAviary implements Building {
+public class DogsAviary {
 
     private static int aviaryNumberCounter = 1;
     private int aviaryNumber;
     private Dog dog;
+    private boolean isClean;
 
     public DogsAviary() {
         this.aviaryNumber = aviaryNumberCounter;
@@ -27,6 +26,7 @@ public class DogsAviary implements Building {
     public void removeDog(Dog dog) {
         if (!checkIsAviaryEmpty()) {
             this.dog = null;
+            isClean = false;
         } else {
             System.out.println("Aviary №" + aviaryNumber + " is already empty");
         }
@@ -44,6 +44,17 @@ public class DogsAviary implements Building {
         return dog;
     }
 
+    public void setDog(Dog dog) {
+        this.dog = dog;
+    }
+
+    public boolean isClean() {
+        return isClean;
+    }
+
+    public void setClean(boolean clean) {
+        isClean = clean;
+    }
 
     @Override
     public String toString() {

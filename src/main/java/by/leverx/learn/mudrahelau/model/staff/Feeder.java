@@ -1,7 +1,7 @@
 package by.leverx.learn.mudrahelau.model.staff;
 
 import by.leverx.learn.mudrahelau.model.Dog;
-import by.leverx.learn.mudrahelau.model.StaffWithDogActivity;
+import by.leverx.learn.mudrahelau.model.staff.staffactivity.StaffWithDogActivity;
 
 /**
  * @author Viktar on 10.05.2020

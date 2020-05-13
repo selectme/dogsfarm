@@ -1,12 +1,12 @@
 package by.leverx.learn.mudrahelau.model.staff;
 
 import by.leverx.learn.mudrahelau.model.Dog;
-import by.leverx.learn.mudrahelau.model.StaffWithDogActivity;
+import by.leverx.learn.mudrahelau.model.staff.staffactivity.StaffWithDogActivity;
 
 /**
  * @author Viktar on 12.05.2020
  */
-public class WorkDistributor implements StaffWithDogActivity {
+public class DogAtFarmDistributor implements StaffWithDogActivity {
     private StaffWithDogActivity staffActivity;
 
     public void setStaffActivity(StaffWithDogActivity staffActivity) {

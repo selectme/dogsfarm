@@ -1,13 +1,10 @@
 package by.leverx.learn.mudrahelau.model;
 
-import by.leverx.learn.mudrahelau.dogtypes.DogTypes;
-import by.leverx.learn.mudrahelau.model.building.DogsAviary;
-import by.leverx.learn.mudrahelau.model.building.TrainingGround;
-import by.leverx.learn.mudrahelau.model.staff.Cleaner;
-import by.leverx.learn.mudrahelau.model.staff.Feeder;
-import by.leverx.learn.mudrahelau.model.staff.Trainer;
-import by.leverx.learn.mudrahelau.model.staff.Veterinarian;
-import by.leverx.learn.mudrahelau.util.DogTypeDeterminer;
+import by.leverx.learn.mudrahelau.daytimes.DayTime;
+import by.leverx.learn.mudrahelau.model.staff.*;
+import by.leverx.learn.mudrahelau.model.staff.staffactivity.StaffWithDogActivity;
+import by.leverx.learn.mudrahelau.model.staff.staffactivity.impl.*;
+import by.leverx.learn.mudrahelau.traininggroundstatus.TrainingGroundStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +15,16 @@ import java.util.List;
 public class Farm {
 
     private List<DogsAviary> dogsAviaries = new ArrayList<>();
-    private List<Dog> puppiesToTrain = new ArrayList<>();
-    private List<Dog> dogsToWork = new ArrayList<>();
-
-    private TrainingGround trainingGround;
+    private List<Dog> dogsForWork = new ArrayList<>();
+    private List<Dog> dogsForTraining = new ArrayList<>();
 
     private StaffWithDogActivity staffActivity;
+    private TrainingGround trainingGround;
+    private DayTime dayTime;
+
 
     private static Farm farm;
+
 
     public static Farm getInstance() {
         if (farm == null) {
@@ -38,15 +37,6 @@ public class Farm {
         dogsAviaries.add(dogsAviary);
     }
 
-    public void training() {
-        Trainer trainer = new Trainer();
-        trainer.setStaffActivity(new Training());
-
-        for (Dog dog : puppiesToTrain) {
-
-            trainer.doActivity(dog);
-        }
-    }
 
     public void feeding() {
         Feeder feeder = new Feeder();
@@ -56,6 +46,7 @@ public class Farm {
             if (!aviary.checkIsAviaryEmpty())
                 feeder.doActivity(aviary.getDog());
         }
+
     }
 
     public void healthCheckUp() {
@@ -68,41 +59,100 @@ public class Farm {
         }
     }
 
-    public void aviaryCleaning() {
-        Cleaner cleaner = new Cleaner();
-        cleaner.setStaffFarmMaintenanceActivity(new Cleaning());
-
-        for (DogsAviary aviary : dogsAviaries) {
-            cleaner.doActivity(aviary);
-        }
-    }
 
     public void distributeDogs() {
-        DogTypes dogType;
-        Dog dog;
+        DogAtFarmDistributor dogAtFarmDistributor = new DogAtFarmDistributor();
+        dogAtFarmDistributor.setStaffActivity(new DogAtFarmDistributing());
+
         for (DogsAviary aviary : dogsAviaries) {
-            dog = aviary.getDog();
-            dogType = DogTypeDeterminer.determineDogType(dog);
-            switch (dogType) {
-                case PUPPY:
-                    puppiesToTrain.add(dog);
-                    aviary.removeDog(dog);
-                    break;
-                case ADULT:
-                    dogsToWork.add(dog);
-                    aviary.removeDog(dog);
-                    break;
+            dogAtFarmDistributor.doActivity(aviary.getDog());
+        }
+
+        for (DogsAviary aviary : dogsAviaries) {
+            for (Dog dogForTraining : dogsForTraining) {
+                if (dogForTraining.equals(aviary.getDog())) {
+                    aviary.removeDog(dogForTraining);
+                }
+            }
+        }
+
+        for (DogsAviary aviary : dogsAviaries) {
+            for (Dog dogForWork : dogsForWork) {
+                if (dogForWork.equals(aviary.getDog())) {
+                    aviary.removeDog(dogForWork);
+                }
             }
         }
     }
 
+    public void training(TrainingGround trainingGround) {
+        this.trainingGround = trainingGround;
+        Trainer trainer = new Trainer();
+        trainer.setStaffActivity(new Training());
 
-    public List<DogsAviary> getDogsAviaries() {
-        return dogsAviaries;
+        for (Dog dog : dogsForTraining) {
+            trainingGround.setGroundStatus(TrainingGroundStatus.OCCUPIED);
+            System.out.println("Training ground is occupied by " + dog);
+            trainingGround.startTraining(trainer, dog);
+            trainingGround.setGroundStatus(TrainingGroundStatus.FREE);
+            System.out.println("Training ground is free now");
+        }
     }
 
-    public void setDogsAviaries(List<DogsAviary> dogsAviaries) {
-        this.dogsAviaries = dogsAviaries;
+    public void sendDogsToWork() {
+        DogToWorkDistrubutor distributor = new DogToWorkDistrubutor();
+        distributor.setStaffWithDogActivity(new DogToWorkDistributing());
+
+        for (Dog dog : dogsForWork) {
+            distributor.doActivity(dog);
+        }
+    }
+
+    public void returnDogsToAviaries() {
+
+        for (Dog dog : dogsForTraining) {
+            for (DogsAviary aviary : dogsAviaries) {
+                if (aviary.checkIsAviaryEmpty()) {
+                    aviary.addDog(dog);
+                    break;
+                }
+            }
+        }
+
+        for (Dog dog : dogsForWork) {
+            for (DogsAviary aviary : dogsAviaries) {
+                if (aviary.checkIsAviaryEmpty()) {
+                    aviary.addDog(dog);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void startDaylyTypeActivities(DayTime dayTime) {
+        switch (dayTime) {
+            case MORNING:
+                setDogsHungry();
+                feeding();
+                healthCheckUp();
+                distributeDogs();
+                break;
+            case AFTERNOON:
+                training(trainingGround);
+                sendDogsToWork();
+                break;
+            case EVENING:
+                returnDogsToAviaries();
+                setDogsHungry();
+                feeding();
+                break;
+        }
+    }
+
+    public void setDogsHungry() {
+        for (DogsAviary aviary : dogsAviaries) {
+            aviary.getDog().setFed(false);
+        }
     }
 
     public TrainingGround getTrainingGround() {
@@ -111,6 +161,22 @@ public class Farm {
 
     public void setTrainingGround(TrainingGround trainingGround) {
         this.trainingGround = trainingGround;
+    }
+
+    public List<Dog> getDogsForWork() {
+        return dogsForWork;
+    }
+
+    public List<Dog> getDogsForTraining() {
+        return dogsForTraining;
+    }
+
+    public List<DogsAviary> getDogsAviaries() {
+        return dogsAviaries;
+    }
+
+    public void setDogsAviaries(List<DogsAviary> dogsAviaries) {
+        this.dogsAviaries = dogsAviaries;
     }
 
     public StaffWithDogActivity getStaffActivity() {
@@ -127,5 +193,13 @@ public class Farm {
 
     public static void setFarm(Farm farm) {
         Farm.farm = farm;
+    }
+
+    public DayTime getDayTime() {
+        return dayTime;
+    }
+
+    public void setDayTime(DayTime dayTime) {
+        this.dayTime = dayTime;
     }
 }
