@@ -1,4 +1,4 @@
-package by.leverx.learn.mudrahelau.worktypes;
+package by.leverx.learn.mudrahelau.model.dog;
 
 /**
  * @author Viktar on 13.05.2020

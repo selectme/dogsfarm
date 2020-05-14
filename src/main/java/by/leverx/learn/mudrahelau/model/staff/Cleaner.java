@@ -1,21 +1,21 @@
 package by.leverx.learn.mudrahelau.model.staff;
 
-import by.leverx.learn.mudrahelau.model.Building;
-import by.leverx.learn.mudrahelau.model.staff.staffactivity.StaffFarmMaintenance;
+import by.leverx.learn.mudrahelau.model.building.Building;
+import by.leverx.learn.mudrahelau.activity.buildings.StaffBuildingActivity;
 
 /**
  * @author Viktar on 13.05.2020
  */
-public class Cleaner implements StaffFarmMaintenance {
+public class Cleaner implements StaffBuildingActivity {
 
-    private StaffFarmMaintenance staffFarmMaintenance;
+    private StaffBuildingActivity staffBuildingActivity;
 
-    public void setStaffFarmMaintenance(StaffFarmMaintenance staffFarmMaintenance) {
-        this.staffFarmMaintenance = staffFarmMaintenance;
+    public void setStaffBuildingActivity(StaffBuildingActivity staffBuildingActivity) {
+        this.staffBuildingActivity = staffBuildingActivity;
     }
 
     @Override
     public void maintain(Building building) {
-        staffFarmMaintenance.maintain(building);
+        staffBuildingActivity.maintain(building);
     }
 }

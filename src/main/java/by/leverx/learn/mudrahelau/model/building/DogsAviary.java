@@ -1,14 +1,21 @@
-package by.leverx.learn.mudrahelau.model;
+package by.leverx.learn.mudrahelau.model.building;
+
+import by.leverx.learn.mudrahelau.model.dog.Dog;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import static by.leverx.learn.mudrahelau.common.logger.LoggerMessages.*;
 
 /**
  * @author Viktar on 11.05.2020
  */
-public class DogsAviary  implements Building{
+public class DogsAviary implements Building {
 
     private static int aviaryNumberCounter = 1;
     private int aviaryNumber;
     private Dog dog;
     private boolean isClean;
+    private static final Logger logger = LogManager.getLogger(DogsAviary.class);
 
     public DogsAviary() {
         this.aviaryNumber = aviaryNumberCounter;
@@ -19,7 +26,7 @@ public class DogsAviary  implements Building{
         if (checkIsAviaryEmpty()) {
             this.dog = dog;
         } else {
-            System.out.println("There is no free space in the aviary №" + aviaryNumber);
+            logger.info(AVIARY_NO_SPACE, aviaryNumber);
         }
     }
 
@@ -28,7 +35,7 @@ public class DogsAviary  implements Building{
             this.dog = null;
             isClean = false;
         } else {
-            System.out.println("Aviary №" + aviaryNumber + " is already empty");
+            logger.info(AVIARY_IS_EMPTY, aviaryNumber);
         }
     }
 

@@ -1,10 +1,10 @@
 package by.leverx.learn.mudrahelau;
 
-import by.leverx.learn.mudrahelau.daytimes.DayTime;
-import by.leverx.learn.mudrahelau.model.DogsAviary;
-import by.leverx.learn.mudrahelau.model.Dog;
+import by.leverx.learn.mudrahelau.model.DayTime;
+import by.leverx.learn.mudrahelau.model.building.DogsAviary;
+import by.leverx.learn.mudrahelau.model.dog.Dog;
 import by.leverx.learn.mudrahelau.model.Farm;
-import by.leverx.learn.mudrahelau.model.TrainingGround;
+import by.leverx.learn.mudrahelau.model.building.TrainingGround;
 
 /**
  * @author Viktar on 10.05.2020

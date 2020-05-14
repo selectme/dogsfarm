@@ -1,4 +1,4 @@
-package by.leverx.learn.mudrahelau.traininggroundstatus;
+package by.leverx.learn.mudrahelau.model.building;
 
 /**
  * @author Viktar on 13.05.2020

@@ -1,19 +1,18 @@
-package by.leverx.learn.mudrahelau.model;
+package by.leverx.learn.mudrahelau.model.building;
 
+import by.leverx.learn.mudrahelau.model.dog.Dog;
 import by.leverx.learn.mudrahelau.model.staff.Trainer;
-import by.leverx.learn.mudrahelau.traininggroundstatus.TrainingGroundStatus;
 
 /**
  * @author Viktar on 13.05.2020
  */
-public class TrainingGround implements Building{
+public class TrainingGround implements Building {
 
     private Trainer trainer;
     private TrainingGroundStatus groundStatus;
 
 
     public void startTraining(Trainer trainer, Dog dog){
-
         trainer.doActivity(dog);
     }
 

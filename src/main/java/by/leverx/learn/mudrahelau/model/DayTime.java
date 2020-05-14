@@ -1,4 +1,4 @@
-package by.leverx.learn.mudrahelau.daytimes;
+package by.leverx.learn.mudrahelau.model;
 
 /**
  * @author Viktar on 13.05.2020

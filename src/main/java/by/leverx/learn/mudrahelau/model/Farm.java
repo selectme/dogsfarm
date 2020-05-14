@@ -1,14 +1,21 @@
 package by.leverx.learn.mudrahelau.model;
 
-import by.leverx.learn.mudrahelau.daytimes.DayTime;
+import by.leverx.learn.mudrahelau.activity.buildings.impl.Cleaning;
+import by.leverx.learn.mudrahelau.activity.dogs.*;
+import by.leverx.learn.mudrahelau.activity.dogs.impl.*;
+import by.leverx.learn.mudrahelau.model.building.DogsAviary;
+import by.leverx.learn.mudrahelau.model.building.TrainingGround;
+import by.leverx.learn.mudrahelau.model.building.TrainingGroundStatus;
+import by.leverx.learn.mudrahelau.model.dog.Dog;
 import by.leverx.learn.mudrahelau.model.staff.*;
-import by.leverx.learn.mudrahelau.model.staff.staffactivity.StaffFarmMaintenance;
-import by.leverx.learn.mudrahelau.model.staff.staffactivity.StaffWithDogActivity;
-import by.leverx.learn.mudrahelau.model.staff.staffactivity.impl.*;
-import by.leverx.learn.mudrahelau.traininggroundstatus.TrainingGroundStatus;
+import by.leverx.learn.mudrahelau.activity.buildings.StaffBuildingActivity;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static by.leverx.learn.mudrahelau.common.logger.LoggerMessages.*;
 
 /**
  * @author Viktar on 11.05.2020
@@ -19,10 +26,11 @@ public class Farm {
     private List<Dog> dogsForWork = new ArrayList<>();
     private List<Dog> dogsForTraining = new ArrayList<>();
 
-    private StaffWithDogActivity staffActivity;
-    private StaffFarmMaintenance staffFarmMaintenance;
+    private StaffDogActivity staffActivity;
+    private StaffBuildingActivity staffBuildingActivity;
     private TrainingGround trainingGround;
     private DayTime dayTime;
+    private static final Logger logger = LogManager.getLogger(Farm.class);
 
 
     private static Farm farm;
@@ -48,7 +56,6 @@ public class Farm {
             if (!aviary.checkIsAviaryEmpty())
                 feeder.doActivity(aviary.getDog());
         }
-
     }
 
     public void healthCheckUp() {
@@ -63,11 +70,11 @@ public class Farm {
 
 
     public void distributeDogs() {
-        DogAtFarmDistributor dogAtFarmDistributor = new DogAtFarmDistributor();
-        dogAtFarmDistributor.setStaffActivity(new DogAtFarmDistributing());
+        Distributor distributor = new Distributor();
+        distributor.setStaffActivity(new DogAtFarmDistributing());
 
         for (DogsAviary aviary : dogsAviaries) {
-            dogAtFarmDistributor.doActivity(aviary.getDog());
+            distributor.doActivity(aviary.getDog());
         }
 
         for (DogsAviary aviary : dogsAviaries) {
@@ -94,16 +101,16 @@ public class Farm {
 
         for (Dog dog : dogsForTraining) {
             trainingGround.setGroundStatus(TrainingGroundStatus.OCCUPIED);
-            System.out.println("Training ground is occupied by " + dog);
+            logger.info(OCCUPIED_TRAINING_GROUND, dog);
             trainingGround.startTraining(trainer, dog);
             trainingGround.setGroundStatus(TrainingGroundStatus.FREE);
-            System.out.println("Training ground is free now");
+            logger.info(FREE_TRAINING_GROUND);
         }
     }
 
     public void sendDogsToWork() {
-        DogToWorkDistrubutor distributor = new DogToWorkDistrubutor();
-        distributor.setStaffWithDogActivity(new DogToWorkDistributing());
+        Distributor distributor = new Distributor();
+        distributor.setStaffActivity(new DogToWorkDistributing());
 
         for (Dog dog : dogsForWork) {
             distributor.doActivity(dog);
@@ -133,7 +140,7 @@ public class Farm {
 
     public void cleaning(){
         Cleaner cleaner = new Cleaner();
-        cleaner.setStaffFarmMaintenance(new Cleaning());
+        cleaner.setStaffBuildingActivity(new Cleaning());
 
         for(DogsAviary aviary : dogsAviaries){
             cleaner.maintain(aviary);
@@ -191,11 +198,11 @@ public class Farm {
         this.dogsAviaries = dogsAviaries;
     }
 
-    public StaffWithDogActivity getStaffActivity() {
+    public StaffDogActivity getStaffActivity() {
         return staffActivity;
     }
 
-    public void setStaffActivity(StaffWithDogActivity staffActivity) {
+    public void setStaffActivity(StaffDogActivity staffActivity) {
         this.staffActivity = staffActivity;
     }
 
@@ -215,11 +222,11 @@ public class Farm {
         this.dayTime = dayTime;
     }
 
-    public StaffFarmMaintenance getStaffFarmMaintenance() {
-        return staffFarmMaintenance;
+    public StaffBuildingActivity getStaffBuildingActivity() {
+        return staffBuildingActivity;
     }
 
-    public void setStaffFarmMaintenance(StaffFarmMaintenance staffFarmMaintenance) {
-        this.staffFarmMaintenance = staffFarmMaintenance;
+    public void setStaffBuildingActivity(StaffBuildingActivity staffBuildingActivity) {
+        this.staffBuildingActivity = staffBuildingActivity;
     }
 }

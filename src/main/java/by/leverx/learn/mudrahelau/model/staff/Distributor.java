@@ -4,10 +4,9 @@ import by.leverx.learn.mudrahelau.model.dog.Dog;
 import by.leverx.learn.mudrahelau.activity.dogs.StaffDogActivity;
 
 /**
- * @author Viktar on 10.05.2020
+ * @author Viktar on 12.05.2020
  */
-public class Trainer implements StaffDogActivity {
-
+public class Distributor implements StaffDogActivity {
     private StaffDogActivity staffActivity;
 
     public void setStaffActivity(StaffDogActivity staffActivity) {
