@@ -19,18 +19,12 @@ public class Training implements StaffDogActivity {
     public void doActivity(Dog dog) {
         DogAgeType dogType = DogTypeDeterminer.determineDogType(dog);
         if (dogType == DogAgeType.PUPPY) {
-            if (!checkIsDogTrained(dog)) {
+            if (!dog.isTrained()) {
                 logger.info(DOG_IS_TRAINING, dog.getName());
                 dog.setTrained(true);
-                logger.info(DOG_IS_TRAINED, dog.getName());
-            } else {
-                logger.info(DOG_IS_TRAINED, dog.getName());
             }
+            logger.info(DOG_IS_TRAINED, dog.getName());
         }
-    }
-
-    private boolean checkIsDogTrained(Dog dog) {
-        return dog.isTrained();
     }
 
 }

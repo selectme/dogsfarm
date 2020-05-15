@@ -32,8 +32,9 @@ public class DogsAviary implements Building {
 
     public void removeDog(Dog dog) {
         if (!checkIsAviaryEmpty()) {
-            this.dog = null;
+            if(this.dog.equals(dog))
             isClean = false;
+            logger.info("Dog " + dog + " removed from aviary of " + this.dog);
         } else {
             logger.info(AVIARY_IS_EMPTY, aviaryNumber);
         }
