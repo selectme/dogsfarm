@@ -1,21 +1,24 @@
 package by.leverx.learn.mudrahelau.model;
 
+import by.leverx.learn.mudrahelau.activity.buildings.StaffBuildingActivity;
 import by.leverx.learn.mudrahelau.activity.buildings.impl.Cleaning;
-import by.leverx.learn.mudrahelau.activity.dogs.*;
+import by.leverx.learn.mudrahelau.activity.dogs.StaffDogActivity;
 import by.leverx.learn.mudrahelau.activity.dogs.impl.*;
 import by.leverx.learn.mudrahelau.model.building.DogsAviary;
 import by.leverx.learn.mudrahelau.model.building.TrainingGround;
 import by.leverx.learn.mudrahelau.model.building.TrainingGroundStatus;
 import by.leverx.learn.mudrahelau.model.dog.Dog;
+import by.leverx.learn.mudrahelau.model.dog.DogAgeType;
 import by.leverx.learn.mudrahelau.model.staff.*;
-import by.leverx.learn.mudrahelau.activity.buildings.StaffBuildingActivity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static by.leverx.learn.mudrahelau.common.logger.LoggerMessages.*;
+import static by.leverx.learn.mudrahelau.common.logger.LoggerMessages.FREE_TRAINING_GROUND;
+import static by.leverx.learn.mudrahelau.common.logger.LoggerMessages.OCCUPIED_TRAINING_GROUND;
 
 /**
  * @author Viktar on 11.05.2020
@@ -73,6 +76,7 @@ public class Farm {
         Distributor distributor = new Distributor();
         distributor.setStaffActivity(new DogAtFarmDistributing());
 
+
         for (DogsAviary aviary : dogsAviaries) {
             distributor.doActivity(aviary.getDog());
         }
@@ -84,6 +88,7 @@ public class Farm {
                 }
             }
         }
+
 
         for (DogsAviary aviary : dogsAviaries) {
             for (Dog dogForWork : dogsForWork) {
@@ -136,36 +141,32 @@ public class Farm {
                 }
             }
         }
+
+        dogsForTraining.clear();
+        dogsForWork.clear();
     }
 
-    public void cleaning(){
+    public void cleaning() {
         Cleaner cleaner = new Cleaner();
         cleaner.setStaffBuildingActivity(new Cleaning());
 
-        for(DogsAviary aviary : dogsAviaries){
+        for (DogsAviary aviary : dogsAviaries) {
             cleaner.maintain(aviary);
         }
     }
 
-    public void startDailyTypeActivities(DayTime dayTime) {
-        switch (dayTime) {
-            case MORNING:
-                setDogsHungry();
-                feeding();
-                healthCheckUp();
-                distributeDogs();
-                break;
-            case AFTERNOON:
-                cleaning();
-                training(trainingGround);
-                sendDogsToWork();
-                break;
-            case EVENING:
-                returnDogsToAviaries();
-                setDogsHungry();
-                feeding();
-                break;
-        }
+
+    public void startFarmDay() {
+        setDogsHungry();
+        feeding();
+        healthCheckUp();
+        distributeDogs();
+        cleaning();
+        training(trainingGround);
+        sendDogsToWork();
+        returnDogsToAviaries();
+        setDogsHungry();
+        feeding();
     }
 
     public void setDogsHungry() {
