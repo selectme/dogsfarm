@@ -8,14 +8,12 @@ import by.leverx.learn.mudrahelau.model.building.DogsAviary;
 import by.leverx.learn.mudrahelau.model.building.TrainingGround;
 import by.leverx.learn.mudrahelau.model.building.TrainingGroundStatus;
 import by.leverx.learn.mudrahelau.model.dog.Dog;
-import by.leverx.learn.mudrahelau.model.dog.DogAgeType;
 import by.leverx.learn.mudrahelau.model.staff.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static by.leverx.learn.mudrahelau.common.logger.LoggerMessages.FREE_TRAINING_GROUND;
 import static by.leverx.learn.mudrahelau.common.logger.LoggerMessages.OCCUPIED_TRAINING_GROUND;
@@ -32,7 +30,7 @@ public class Farm {
     private StaffDogActivity staffActivity;
     private StaffBuildingActivity staffBuildingActivity;
     private TrainingGround trainingGround;
-    private DayTime dayTime;
+
     private static final Logger logger = LogManager.getLogger(Farm.class);
 
 
@@ -215,13 +213,6 @@ public class Farm {
         Farm.farm = farm;
     }
 
-    public DayTime getDayTime() {
-        return dayTime;
-    }
-
-    public void setDayTime(DayTime dayTime) {
-        this.dayTime = dayTime;
-    }
 
     public StaffBuildingActivity getStaffBuildingActivity() {
         return staffBuildingActivity;
