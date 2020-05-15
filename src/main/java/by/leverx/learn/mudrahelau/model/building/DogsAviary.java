@@ -11,10 +11,11 @@ import static by.leverx.learn.mudrahelau.common.logger.LoggerMessages.*;
  */
 public class DogsAviary implements Building {
 
-    private static int aviaryNumberCounter = 1;
+
     private int aviaryNumber;
     private Dog dog;
     private boolean isClean;
+    private static int aviaryNumberCounter = 1;
     private static final Logger logger = LogManager.getLogger(DogsAviary.class);
 
     public DogsAviary() {
@@ -32,9 +33,10 @@ public class DogsAviary implements Building {
 
     public void removeDog(Dog dog) {
         if (!checkIsAviaryEmpty()) {
-            if(this.dog.equals(dog))
-            isClean = false;
-            logger.info("Dog " + dog + " removed from aviary of " + this.dog);
+            if (this.dog.equals(dog)) {
+                this.dog = null;
+                isClean = false;
+            }
         } else {
             logger.info(AVIARY_IS_EMPTY, aviaryNumber);
         }

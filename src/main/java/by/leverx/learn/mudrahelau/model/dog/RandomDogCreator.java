@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * @author Viktar on 15.05.2020
  */
-public class CreateRandomDog {
+public class RandomDogCreator {
 
     private static final char[] VOWEL_LETTERS = {'а', 'у', 'о', 'ы', 'и', 'э', 'я', 'ю', 'ё', 'е'};
     private static final char[] CONSONANT_LETTERS = {'б', 'в', 'г', 'д', 'ж', 'з', 'й', 'к', 'л', 'м', 'н', 'п', 'р', 'с', 'т', 'ф', 'х', 'ц', 'ч', 'ш', 'щ'};

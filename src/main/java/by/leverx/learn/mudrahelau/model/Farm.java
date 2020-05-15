@@ -51,7 +51,7 @@ public class Farm {
     }
 
 
-    public void feeding() {
+    private void feeding() {
         Feeder feeder = new Feeder();
         feeder.setStaffActivity(new Feeding());
 
@@ -61,7 +61,7 @@ public class Farm {
         }
     }
 
-    public void healthCheckUp() {
+    private void healthCheckUp() {
         Veterinarian veterinarian = new Veterinarian();
         veterinarian.setStaffActivity(new HealthCheck());
 
@@ -72,7 +72,7 @@ public class Farm {
     }
 
 
-    public void distributeDogs() {
+    private void distributeDogs() {
         Distributor distributor = new Distributor();
         distributor.setStaffActivity(new DogAtFarmDistributing());
 
@@ -99,7 +99,7 @@ public class Farm {
         }
     }
 
-    public void training(TrainingGround trainingGround) {
+    private void training(TrainingGround trainingGround) {
         this.trainingGround = trainingGround;
         Trainer trainer = new Trainer();
         trainer.setStaffActivity(new Training());
@@ -113,7 +113,7 @@ public class Farm {
         }
     }
 
-    public void sendDogsToWork() {
+    private void sendDogsToWork() {
         Distributor distributor = new Distributor();
         distributor.setStaffActivity(new DogToWorkDistributing());
 
@@ -122,7 +122,7 @@ public class Farm {
         }
     }
 
-    public void returnDogsToAviaries() {
+    private void returnDogsToAviaries() {
 
         for (Dog dog : dogsForTraining) {
             for (DogsAviary aviary : dogsAviaries) {
@@ -146,7 +146,7 @@ public class Farm {
         dogsForWork.clear();
     }
 
-    public void cleaning() {
+    private void cleaning() {
         Cleaner cleaner = new Cleaner();
         cleaner.setStaffBuildingActivity(new Cleaning());
 
@@ -169,7 +169,7 @@ public class Farm {
         feeding();
     }
 
-    public void setDogsHungry() {
+    private void setDogsHungry() {
         for (DogsAviary aviary : dogsAviaries) {
             aviary.getDog().setFed(false);
         }
