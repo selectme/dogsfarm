@@ -25,7 +25,6 @@ public class Main {
         farm.setDogsAviaries(generateAviariesWithDogs(NUMBER_OF_AVIARIES));
 
         farm.startFarmDay();
-
     }
 
     private static List<DogsAviary> generateAviariesWithDogs(int numberOfAviaries) {
